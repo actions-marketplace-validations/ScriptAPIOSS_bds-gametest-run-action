@@ -44,7 +44,7 @@ const fs_1 = __nccwpck_require__(147);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            let data = JSON.stringify({
+            const data = JSON.stringify({
                 automation_repeat_count: 2,
                 automation_repeat_failures_only: true,
                 max_tests_per_batch: 20,

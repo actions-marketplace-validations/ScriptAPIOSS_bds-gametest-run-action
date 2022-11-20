@@ -7,13 +7,13 @@ interface TestConfig {
   max_tests_per_batch: number
   timeout_ticks: number
   automation_testrun_id: string
-  automation_gametest_tags: Array<string>
+  automation_gametest_tags: string[]
   generate_documentation: boolean
 }
 
 async function run(): Promise<void> {
   try {
-    let data = JSON.stringify({
+    const data = JSON.stringify({
       automation_repeat_count: 2,
       automation_repeat_failures_only: true,
       max_tests_per_batch: 20,
