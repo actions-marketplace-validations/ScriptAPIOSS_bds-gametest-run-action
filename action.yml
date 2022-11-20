@@ -1,0 +1,11 @@
+name: 'bds-gametest-run'
+description: 'An action to execute and collect results for minecraft gametest framework'
+author: 'ScriptAPIOSS'
+inputs:
+  EULA_ACCEPT:
+    required: true
+    description: 'Do you accept the EULA - https://minecraft.net/terms'
+    default: 'false'
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
