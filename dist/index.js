@@ -40,10 +40,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(186));
+const fs_1 = __nccwpck_require__(147);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            core.summary.addHeading('Test summary');
+            let data = JSON.stringify({
+                automation_repeat_count: 2,
+                automation_repeat_failures_only: true,
+                max_tests_per_batch: 20,
+                timeout_ticks: 60000,
+                automation_testrun_id: '1',
+                automation_gametest_tags: ['hello_world']
+            });
+            yield fs_1.promises.writeFile('test_config.json', data, { flag: 'w' });
         }
         catch (error) {
             if (error instanceof Error)
