@@ -19,9 +19,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: ./
+      - uses: ScriptAPIOSS/setup-bds-action@v1
         with:
           BDS_VERSION: latest
           BDS_CHANNEL: preview
           EULA_ACCEPT: true
           PP_ACCEPT: true
+      - uses: ./
+        with:
+          BDS_PATH: './bds/'
+          TIMEOUT_TICKS: 60000
