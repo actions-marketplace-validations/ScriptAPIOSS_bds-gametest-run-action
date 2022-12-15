@@ -249,6 +249,11 @@ function run() {
             }));
             let results = JSON.parse(yield fs_1.promises.readFile(path.join(process.cwd(), inputs_1.BDS_PATH, LOG_PATH, TEST_RESULTS_FILE), 'utf8'));
             core.info(JSON.stringify(results));
+            for (const r of results.results) {
+                if (r.result === 'failed') {
+                    core.error(`Test failed: ${r.name}`);
+                }
+            }
         }
         catch (error) {
             if (error instanceof Error)

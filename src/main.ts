@@ -148,6 +148,12 @@ async function run(): Promise<void> {
     )
 
     core.info(JSON.stringify(results))
+
+    for (const r of results.results) {
+      if (r.result === 'failed') {
+        core.error(`Test failed: ${r.name}`)
+      }
+    }
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
   }
