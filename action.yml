@@ -2,10 +2,14 @@ name: 'bds-gametest-run'
 description: 'An action to execute and collect results for minecraft gametest framework'
 author: 'ScriptAPIOSS'
 inputs:
-  EULA_ACCEPT:
+  BDS_PATH:
     required: true
-    description: 'Do you accept the EULA - https://minecraft.net/terms'
-    default: 'false'
+    description: 'The path to BDS on the filesystem'
+    default: './bds/'
+  TIMEMOUT_TICKS:
+    required: true
+    description: ''
+    default: 60000
 runs:
   using: 'node16'
   main: 'dist/index.js'
