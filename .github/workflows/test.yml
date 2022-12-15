@@ -28,3 +28,4 @@ jobs:
       - uses: ./
         with:
           BDS_PATH: './bds/'
+          TIMEOUT_TICKS: 60000
