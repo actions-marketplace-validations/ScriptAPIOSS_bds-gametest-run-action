@@ -265,6 +265,7 @@ function run() {
                 ]);
             }
             core.summary.addTable(rows);
+            core.summary.write();
         }
         catch (error) {
             if (error instanceof Error)

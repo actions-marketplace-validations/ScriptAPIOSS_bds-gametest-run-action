@@ -171,6 +171,8 @@ async function run(): Promise<void> {
     }
 
     core.summary.addTable(rows)
+
+    core.summary.write()
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
   }
