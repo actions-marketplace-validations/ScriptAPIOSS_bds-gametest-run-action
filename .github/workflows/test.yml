@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: setup-bds@v1
+      - uses: ScriptAPIOSS/setup-bds@v1
         with:
           BDS_VERSION: latest
           BDS_CHANNEL: preview
