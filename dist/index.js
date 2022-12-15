@@ -249,11 +249,22 @@ function run() {
             }));
             let results = JSON.parse(yield fs_1.promises.readFile(path.join(process.cwd(), inputs_1.BDS_PATH, LOG_PATH, TEST_RESULTS_FILE), 'utf8'));
             core.info(JSON.stringify(results));
+            core.summary.addHeading('Test results');
+            const rows = new Array();
+            rows.push([
+                { data: `Test`, header: true },
+                { data: `Result`, header: true }
+            ]);
             for (const r of results.results) {
                 if (r.result === 'failed') {
                     core.error(`Test failed: ${r.name}`);
                 }
+                rows.push([
+                    { data: `${r.name}` },
+                    { data: `${r.result}` }
+                ]);
             }
+            core.summary.addTable(rows);
         }
         catch (error) {
             if (error instanceof Error)

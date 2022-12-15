@@ -1,5 +1,6 @@
 import * as core from '@actions/core'
 import * as exec from '@actions/exec'
+import {SummaryTableCell, SummaryTableRow} from '@actions/core/lib/summary'
 import {v4 as uuidv4} from 'uuid'
 
 import {promises} from 'fs'
@@ -149,11 +150,27 @@ async function run(): Promise<void> {
 
     core.info(JSON.stringify(results))
 
+    core.summary.addHeading('Test results')
+
+    const rows = new Array<SummaryTableRow>()
+
+    rows.push([
+      {data: `Test`, header: true} as SummaryTableCell,
+      {data: `Result`, header: true} as SummaryTableCell
+    ])
+
     for (const r of results.results) {
       if (r.result === 'failed') {
         core.error(`Test failed: ${r.name}`)
       }
+
+      rows.push([
+        {data: `${r.name}`} as SummaryTableCell,
+        {data: `${r.result}`} as SummaryTableCell
+      ])
     }
+
+    core.summary.addTable(rows)
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
   }
