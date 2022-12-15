@@ -1,4 +1,4 @@
-export const SERVER_PROPERTIES: string = `server-name=Dedicated Server
+export const SERVER_PROPERTIES = `server-name=Dedicated Server
 difficulty=peaceful
 allow-cheats=true
 level-name=Bedrock level
