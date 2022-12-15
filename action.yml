@@ -6,7 +6,7 @@ inputs:
     required: true
     description: 'The path to BDS on the filesystem'
     default: './bds/'
-  TIMEMOUT_TICKS:
+  TIMEOUT_TICKS:
     required: true
     description: ''
     default: 60000
