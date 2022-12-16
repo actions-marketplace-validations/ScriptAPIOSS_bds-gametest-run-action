@@ -169,7 +169,7 @@ async function run(): Promise<void> {
       switch (r.result) {
         case 'passed':
           icon = ':white_check_mark:'
-        case 'failed:':
+        case 'failed':
           icon = ':x:'
       }
 
