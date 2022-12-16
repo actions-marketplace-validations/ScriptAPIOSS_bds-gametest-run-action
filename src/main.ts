@@ -169,8 +169,10 @@ async function run(): Promise<void> {
       switch (r.result) {
         case 'passed':
           icon = ':white_check_mark:'
+          break;
         case 'failed':
           icon = ':x:'
+          break;
       }
 
       rows.push([
