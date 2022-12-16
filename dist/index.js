@@ -254,7 +254,7 @@ function run() {
             rows.push([
                 { data: `Test`, header: true },
                 { data: `Result`, header: true },
-                { data: `Iteration`, header: true },
+                { data: `Iteration`, header: true }
             ]);
             for (const r of results.results) {
                 if (r.result === 'failed') {
@@ -262,13 +262,17 @@ function run() {
                 }
                 let icon;
                 switch (r.result) {
-                    case "passed": icon = ":white_check_mark:";
-                    case "failed:": icon = ":x:";
+                    case 'passed':
+                        icon = ':white_check_mark:';
+                        break;
+                    case 'failed':
+                        icon = ':x:';
+                        break;
                 }
                 rows.push([
                     { data: `${r.name}` },
                     { data: `${icon} ${r.result}` },
-                    { data: `${r.iteration}` },
+                    { data: `${r.iteration}` }
                 ]);
             }
             core.summary.addTable(rows);
