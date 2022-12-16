@@ -156,7 +156,8 @@ async function run(): Promise<void> {
 
     rows.push([
       {data: `Test`, header: true} as SummaryTableCell,
-      {data: `Result`, header: true} as SummaryTableCell
+      {data: `Result`, header: true} as SummaryTableCell,
+      {data: `Iteration`, header: true} as SummaryTableCell
     ])
 
     for (const r of results.results) {
@@ -164,9 +165,18 @@ async function run(): Promise<void> {
         core.error(`Test failed: ${r.name}`)
       }
 
+      let icon
+      switch (r.result) {
+        case 'passed':
+          icon = ':white_check_mark:'
+        case 'failed:':
+          icon = ':x:'
+      }
+
       rows.push([
         {data: `${r.name}`} as SummaryTableCell,
-        {data: `${r.result}`} as SummaryTableCell
+        {data: `${icon} ${r.result}`} as SummaryTableCell,
+        {data: `${r.iteration}`} as SummaryTableCell
       ])
     }
 

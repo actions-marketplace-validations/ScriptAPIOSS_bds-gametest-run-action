@@ -253,15 +253,22 @@ function run() {
             const rows = new Array();
             rows.push([
                 { data: `Test`, header: true },
-                { data: `Result`, header: true }
+                { data: `Result`, header: true },
+                { data: `Iteration`, header: true },
             ]);
             for (const r of results.results) {
                 if (r.result === 'failed') {
                     core.error(`Test failed: ${r.name}`);
                 }
+                let icon;
+                switch (r.result) {
+                    case "passed": icon = ":white_check_mark:";
+                    case "failed:": icon = ":x:";
+                }
                 rows.push([
                     { data: `${r.name}` },
-                    { data: `${r.result}` }
+                    { data: `${icon} ${r.result}` },
+                    { data: `${r.iteration}` },
                 ]);
             }
             core.summary.addTable(rows);
