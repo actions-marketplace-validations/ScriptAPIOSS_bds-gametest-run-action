@@ -158,7 +158,8 @@ async function run(): Promise<void> {
       {data: `Test`, header: true},
       {data: `Result`, header: true},
       {data: `Iteration`, header: true},
-      {data: `Duration`, header: true}
+      {data: `Duration`, header: true},
+      {data: `Error`, header: true}
     ])
 
     for (const r of results.results) {
@@ -183,7 +184,8 @@ async function run(): Promise<void> {
         {data: `${r.name}`},
         {data: `${icon} ${r.result}`},
         {data: `${r.iteration}`},
-        {data: `${endTime.getTime() - startTime.getTime()}`}
+        {data: `${(endTime.getTime() - startTime.getTime()) / 1000}s`},
+        {data: `${r.error}`}
       ])
     }
 

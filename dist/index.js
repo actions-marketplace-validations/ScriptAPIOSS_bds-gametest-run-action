@@ -255,7 +255,8 @@ function run() {
                 { data: `Test`, header: true },
                 { data: `Result`, header: true },
                 { data: `Iteration`, header: true },
-                { data: `Duration`, header: true }
+                { data: `Duration`, header: true },
+                { data: `Error`, header: true }
             ]);
             for (const r of results.results) {
                 if (r.result === 'failed') {
@@ -276,7 +277,8 @@ function run() {
                     { data: `${r.name}` },
                     { data: `${icon} ${r.result}` },
                     { data: `${r.iteration}` },
-                    { data: `${endTime.getTime() - startTime.getTime()}` }
+                    { data: `${(endTime.getTime() - startTime.getTime()) / 1000}s` },
+                    { data: `${r.error}` }
                 ]);
             }
             core.summary.addTable(rows);
