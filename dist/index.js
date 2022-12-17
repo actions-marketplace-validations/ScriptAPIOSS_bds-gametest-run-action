@@ -254,7 +254,8 @@ function run() {
             rows.push([
                 { data: `Test`, header: true },
                 { data: `Result`, header: true },
-                { data: `Iteration`, header: true }
+                { data: `Iteration`, header: true },
+                { data: `Duration`, header: true }
             ]);
             for (const r of results.results) {
                 if (r.result === 'failed') {
@@ -269,10 +270,13 @@ function run() {
                         icon = ':red_circle:';
                         break;
                 }
+                const startTime = new Date(r.startTime);
+                const endTime = new Date(r.endTime);
                 rows.push([
                     { data: `${r.name}` },
                     { data: `${icon} ${r.result}` },
-                    { data: `${r.iteration}` }
+                    { data: `${r.iteration}` },
+                    { data: `${endTime.getTime() - startTime.getTime()}` }
                 ]);
             }
             core.summary.addTable(rows);
