@@ -263,10 +263,10 @@ function run() {
                 let icon;
                 switch (r.result) {
                     case 'passed':
-                        icon = ':white_check_mark:';
+                        icon = ':green_circle:';
                         break;
                     case 'failed':
-                        icon = ':x:';
+                        icon = ':red_circle:';
                         break;
                 }
                 rows.push([

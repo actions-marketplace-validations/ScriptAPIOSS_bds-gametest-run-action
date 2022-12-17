@@ -155,9 +155,9 @@ async function run(): Promise<void> {
     const rows = new Array<SummaryTableRow>()
 
     rows.push([
-      {data: `Test`, header: true} as SummaryTableCell,
-      {data: `Result`, header: true} as SummaryTableCell,
-      {data: `Iteration`, header: true} as SummaryTableCell
+      {data: `Test`, header: true},
+      {data: `Result`, header: true},
+      {data: `Iteration`, header: true}
     ])
 
     for (const r of results.results) {
@@ -168,17 +168,17 @@ async function run(): Promise<void> {
       let icon
       switch (r.result) {
         case 'passed':
-          icon = ':white_check_mark:'
+          icon = ':green_circle:'
           break
         case 'failed':
-          icon = ':x:'
+          icon = ':red_circle:'
           break
       }
 
       rows.push([
-        {data: `${r.name}`} as SummaryTableCell,
-        {data: `${icon} ${r.result}`} as SummaryTableCell,
-        {data: `${r.iteration}`} as SummaryTableCell
+        {data: `${r.name}`},
+        {data: `${icon} ${r.result}`},
+        {data: `${r.iteration}`}
       ])
     }
 
