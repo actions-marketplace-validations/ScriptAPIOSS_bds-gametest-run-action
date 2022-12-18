@@ -13,7 +13,7 @@ import {Permissions} from './types/permissions'
 import {SERVER_PROPERTIES} from './types/server-props'
 import {DEBUG_TEST_TAG} from './debug-tests'
 import {create_debug_pack} from './debug-pack'
-import {BDS_PATH, TIMEOUT_TICKS} from './types/inputs'
+import {BDS_PATH, PACKS, TIMEOUT_TICKS} from './types/inputs'
 import {LEVEL_DAT} from './types/level-dat'
 
 const LOG_PATH: string = 'logs'
@@ -31,6 +31,26 @@ async function run(): Promise<void> {
       }
       case 'darwin': {
         throw new Error('Unsupported platform: ${process.platform}')
+      }
+    }
+
+    let debug_pack_uuid = uuidv4()
+
+    const pack_data = [
+      {
+        pack_id: debug_pack_uuid,
+        version: [0, 0, 1]
+      }
+    ] as Array<PackDefinition>
+
+    for (const p of PACKS) {
+      try {
+        const pack_array: Array<PackDefinition> = JSON.parse(p)
+        for (const pat of pack_array) {
+          pack_data.push(pat)
+        }
+      } catch (e) {
+        // do normal
       }
     }
 
@@ -54,20 +74,7 @@ async function run(): Promise<void> {
     )
     core.debug('wrote test_config.json')
 
-    let debug_pack_uuid = uuidv4()
-
     await create_debug_pack(debug_pack_uuid)
-
-    const pack_data = JSON.stringify([
-      {
-        pack_id: debug_pack_uuid,
-        version: [0, 0, 1]
-      },
-      {
-        pack_id: '142a42aa-98d4-420d-8e3f-e34ab8a0c05f',
-        version: [0, 0, 1]
-      }
-    ] as Array<PackDefinition>)
 
     // levelname.txt
 
@@ -106,7 +113,7 @@ async function run(): Promise<void> {
         WORLD_NAME,
         WORLD_BEHAVIOR_PACKS_FILE
       ),
-      pack_data,
+      JSON.stringify(pack_data),
       {
         flag: 'w'
       }
