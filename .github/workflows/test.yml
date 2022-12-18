@@ -26,9 +26,9 @@ jobs:
           BDS_CHANNEL: preview
           EULA_ACCEPT: true
           PP_ACCEPT: true
-          PACKS: |
-            [{"pack_id":"00cfaf5e-4da5-c67d-2bdc-411abf3d4ccf","version":[1,0,0]}]
       - uses: ./
         with:
           BDS_PATH: ${{ steps.setup-bds.outputs.DOWNLOAD_PATH }}
           TIMEOUT_TICKS: 1000
+          PACKS: |
+            [{"pack_id":"00cfaf5e-4da5-c67d-2bdc-411abf3d4ccf","version":[1,0,0]}]
