@@ -193,6 +193,24 @@ function run() {
                     throw new Error('Unsupported platform: ${process.platform}');
                 }
             }
+            let debug_pack_uuid = (0, uuid_1.v4)();
+            const pack_data = [
+                {
+                    pack_id: debug_pack_uuid,
+                    version: [0, 0, 1]
+                }
+            ];
+            for (const p of inputs_1.PACKS) {
+                try {
+                    const pack_array = JSON.parse(p);
+                    for (const pat of pack_array) {
+                        pack_data.push(pat);
+                    }
+                }
+                catch (e) {
+                    // do normal
+                }
+            }
             core.startGroup('Setup configs');
             const test_config_data = JSON.stringify({
                 automation_repeat_count: 2,
@@ -206,18 +224,7 @@ function run() {
                 flag: 'w'
             });
             core.debug('wrote test_config.json');
-            let debug_pack_uuid = (0, uuid_1.v4)();
             yield (0, debug_pack_1.create_debug_pack)(debug_pack_uuid);
-            const pack_data = JSON.stringify([
-                {
-                    pack_id: debug_pack_uuid,
-                    version: [0, 0, 1]
-                },
-                {
-                    pack_id: '142a42aa-98d4-420d-8e3f-e34ab8a0c05f',
-                    version: [0, 0, 1]
-                }
-            ]);
             // levelname.txt
             yield fs_1.promises.writeFile(path.join(process.cwd(), inputs_1.BDS_PATH, 'server.properties'), server_props_1.SERVER_PROPERTIES, {
                 flag: 'w'
@@ -231,7 +238,7 @@ function run() {
                 flag: 'w'
             });
             core.debug('wrote level.dat');
-            yield fs_1.promises.writeFile(path.join(process.cwd(), inputs_1.BDS_PATH, WORLDS_PATH, WORLD_NAME, WORLD_BEHAVIOR_PACKS_FILE), pack_data, {
+            yield fs_1.promises.writeFile(path.join(process.cwd(), inputs_1.BDS_PATH, WORLDS_PATH, WORLD_NAME, WORLD_BEHAVIOR_PACKS_FILE), JSON.stringify(pack_data), {
                 flag: 'w'
             });
             core.debug('wrote world_behavior_packs.json');
@@ -325,12 +332,13 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.TIMEOUT_TICKS = exports.BDS_PATH = void 0;
+exports.PACKS = exports.TIMEOUT_TICKS = exports.BDS_PATH = void 0;
 const core = __importStar(__nccwpck_require__(2186));
 exports.BDS_PATH = core.getInput('BDS_PATH', { required: true });
 exports.TIMEOUT_TICKS = Number(core.getInput('TIMEOUT_TICKS', {
     required: true
 }));
+exports.PACKS = core.getMultilineInput('PACKS');
 
 
 /***/ }),
