@@ -163,9 +163,9 @@ async function run(): Promise<void> {
     ])
 
     for (const r of results.results) {
-      if (r.result === 'failed') {
-        core.error(`Test failed: ${r.name}`)
-      }
+      // if (r.result === 'failed') {
+      //   core.error(`Test failed: ${r.name}`)
+      // }
 
       let icon
       switch (r.result) {
