@@ -20,6 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ScriptAPIOSS/setup-bds-action@v1
+        id: setup-bds
         with:
           BDS_VERSION: latest
           BDS_CHANNEL: preview
@@ -27,5 +28,5 @@ jobs:
           PP_ACCEPT: true
       - uses: ./
         with:
-          BDS_PATH: './bds/'
-          TIMEOUT_TICKS: 60000
+          BDS_PATH: ${{ steps.setup-bds.outputs.DOWNLOAD_PATH }}
+          TIMEOUT_TICKS: 1000

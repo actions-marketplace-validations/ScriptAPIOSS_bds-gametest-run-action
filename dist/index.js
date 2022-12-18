@@ -259,9 +259,9 @@ function run() {
                 { data: `Error`, header: true }
             ]);
             for (const r of results.results) {
-                if (r.result === 'failed') {
-                    core.error(`Test failed: ${r.name}`);
-                }
+                // if (r.result === 'failed') {
+                //   core.error(`Test failed: ${r.name}`)
+                // }
                 let icon;
                 switch (r.result) {
                     case 'passed':
