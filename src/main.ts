@@ -13,7 +13,7 @@ import {Permissions} from './types/permissions'
 import {SERVER_PROPERTIES} from './types/server-props'
 import {DEBUG_TEST_TAG} from './debug-tests'
 import {create_debug_pack} from './debug-pack'
-import {BDS_PATH, PACKS, TIMEOUT_TICKS} from './types/inputs'
+import {BDS_PATH, PACKS, TEST_TAGS, TIMEOUT_TICKS} from './types/inputs'
 import {LEVEL_DAT} from './types/level-dat'
 
 const LOG_PATH: string = 'logs'
@@ -62,7 +62,7 @@ async function run(): Promise<void> {
       max_tests_per_batch: 20,
       timeout_ticks: TIMEOUT_TICKS,
       automation_testrun_id: '123456789',
-      automation_gametest_tags: [DEBUG_TEST_TAG, 'ChallengeTests']
+      automation_gametest_tags: [DEBUG_TEST_TAG, ...TEST_TAGS]
     } as TestConfig)
 
     await promises.writeFile(
@@ -75,8 +75,6 @@ async function run(): Promise<void> {
     core.debug('wrote test_config.json')
 
     await create_debug_pack(debug_pack_uuid)
-
-    // levelname.txt
 
     await promises.writeFile(
       path.join(process.cwd(), BDS_PATH, 'server.properties'),
@@ -104,6 +102,8 @@ async function run(): Promise<void> {
       }
     )
     core.debug('wrote level.dat')
+
+    core.debug(`world_behavior_packs: ${pack_data}`)
 
     await promises.writeFile(
       path.join(

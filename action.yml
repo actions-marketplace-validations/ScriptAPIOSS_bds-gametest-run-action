@@ -12,6 +12,8 @@ inputs:
     default: 60000
   PACKS:
     description: ''
+  TEST_TAGS:
+    description: ''
     default: ''
 runs:
   using: 'node16'

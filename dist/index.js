@@ -218,14 +218,13 @@ function run() {
                 max_tests_per_batch: 20,
                 timeout_ticks: inputs_1.TIMEOUT_TICKS,
                 automation_testrun_id: '123456789',
-                automation_gametest_tags: [debug_tests_1.DEBUG_TEST_TAG, 'ChallengeTests']
+                automation_gametest_tags: [debug_tests_1.DEBUG_TEST_TAG, ...inputs_1.TEST_TAGS]
             });
             yield fs_1.promises.writeFile(path.join(process.cwd(), inputs_1.BDS_PATH, TEST_CONFIG_FILE), test_config_data, {
                 flag: 'w'
             });
             core.debug('wrote test_config.json');
             yield (0, debug_pack_1.create_debug_pack)(debug_pack_uuid);
-            // levelname.txt
             yield fs_1.promises.writeFile(path.join(process.cwd(), inputs_1.BDS_PATH, 'server.properties'), server_props_1.SERVER_PROPERTIES, {
                 flag: 'w'
             });
@@ -238,6 +237,7 @@ function run() {
                 flag: 'w'
             });
             core.debug('wrote level.dat');
+            core.debug(`world_behavior_packs: ${pack_data}`);
             yield fs_1.promises.writeFile(path.join(process.cwd(), inputs_1.BDS_PATH, WORLDS_PATH, WORLD_NAME, WORLD_BEHAVIOR_PACKS_FILE), JSON.stringify(pack_data), {
                 flag: 'w'
             });
@@ -332,13 +332,14 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.PACKS = exports.TIMEOUT_TICKS = exports.BDS_PATH = void 0;
+exports.TEST_TAGS = exports.PACKS = exports.TIMEOUT_TICKS = exports.BDS_PATH = void 0;
 const core = __importStar(__nccwpck_require__(2186));
 exports.BDS_PATH = core.getInput('BDS_PATH', { required: true });
 exports.TIMEOUT_TICKS = Number(core.getInput('TIMEOUT_TICKS', {
     required: true
 }));
 exports.PACKS = core.getMultilineInput('PACKS');
+exports.TEST_TAGS = core.getMultilineInput('TEST_TAGS');
 
 
 /***/ }),
