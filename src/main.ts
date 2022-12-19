@@ -1,5 +1,6 @@
 import * as core from '@actions/core'
 import * as exec from '@actions/exec'
+import * as glob from '@actions/glob'
 import {SummaryTableCell, SummaryTableRow} from '@actions/core/lib/summary'
 import {v4 as uuidv4} from 'uuid'
 
@@ -15,6 +16,7 @@ import {DEBUG_TEST_TAG} from './debug-tests'
 import {create_debug_pack} from './debug-pack'
 import {BDS_PATH, PACKS, TEST_TAGS, TIMEOUT_TICKS} from './types/inputs'
 import {LEVEL_DAT} from './types/level-dat'
+import { readFile } from 'fs/promises'
 
 const LOG_PATH: string = 'logs'
 const TEST_CONFIG_FILE: string = 'test_config.json'
@@ -197,6 +199,14 @@ async function run(): Promise<void> {
     }
 
     core.summary.addTable(rows)
+
+    const globber = await glob.create(path.join(process.cwd(), BDS_PATH, 'ContentLog__*'))
+    for await (const cl of globber.globGenerator()) {
+      const flbuf = await readFile(cl, 'utf8')
+      core.summary.addSeparator()
+      core.summary.addHeading(cl)
+      core.summary.addCodeBlock(flbuf)
+    }
 
     core.summary.write()
   } catch (error) {
