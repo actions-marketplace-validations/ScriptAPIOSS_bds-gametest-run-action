@@ -45,21 +45,22 @@ async function run(): Promise<void> {
       }
     ] as Array<PackDefinition>
 
-    core.debug(`Before: ${pack_data}`)
+    core.info(`Before: ${pack_data}`)
 
-    core.debug(`Supplied packs: ${PACKS}`)
+    core.info(`Supplied packs: ${PACKS}`)
 
     for (const p of PACKS) {
-      core.debug(`Iteration: ${p}`)
+      core.info(`Iteration: ${p}`)
       try {
         const pack_array: Array<PackDefinition> = JSON.parse(p)
+        core.info(`Iter parsed: ${JSON.stringify(pack_array)}`)
         pack_data.concat(pack_array)
       } catch (e) {
         // do "uuid - [v, v, v]" format here
       }
     }
 
-    core.debug(`After: ${pack_data}`)
+    core.info(`After: ${JSON.stringify(pack_data)}`)
 
 
     core.startGroup('Setup configs')
