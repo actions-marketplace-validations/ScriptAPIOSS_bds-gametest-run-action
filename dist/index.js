@@ -213,6 +213,7 @@ function run() {
             for (const p of inputs_1.PACKS) {
                 try {
                     const pack_array = JSON.parse(p);
+                    core.info(`Concatting: ${JSON.stringify(pack_array)}`);
                     pack_data.concat(pack_array);
                 }
                 catch (e) {

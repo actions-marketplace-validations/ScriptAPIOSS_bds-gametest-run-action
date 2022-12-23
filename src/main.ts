@@ -48,6 +48,7 @@ async function run(): Promise<void> {
     for (const p of PACKS) {
       try {
         const pack_array: Array<PackDefinition> = JSON.parse(p)
+        core.info(`Concatting: ${JSON.stringify(pack_array)}`)
         pack_data.concat(pack_array)
       } catch (e) {
         // do "uuid - [v, v, v]" format here
