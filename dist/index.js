@@ -210,7 +210,7 @@ function run() {
                     version: [0, 0, 1]
                 }
             ];
-            core.info(`Before: ${pack_data}`);
+            core.info(`Before: ${JSON.stringify(pack_data)}`);
             core.info(`Supplied packs: ${inputs_1.PACKS}`);
             for (const p of inputs_1.PACKS) {
                 core.info(`Iteration: ${p}`);

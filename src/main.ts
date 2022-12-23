@@ -45,7 +45,7 @@ async function run(): Promise<void> {
       }
     ] as Array<PackDefinition>
 
-    core.info(`Before: ${pack_data}`)
+    core.info(`Before: ${JSON.stringify(pack_data)}`)
 
     core.info(`Supplied packs: ${PACKS}`)
 
