@@ -53,13 +53,9 @@ async function run(): Promise<void> {
       core.debug(`Iteration: ${p}`)
       try {
         const pack_array: Array<PackDefinition> = JSON.parse(p)
-        core.info(`pa: ${pack_array}`)
-        for (const pat of pack_array) {
-          pack_data.push(pat)
-          core.debug(`Added: ${pat}`)
-        }
+        pack_data.concat(pack_array)
       } catch (e) {
-        // do normal
+        // do "uuid - [v, v, v]" format here
       }
     }
 
