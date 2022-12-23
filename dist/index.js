@@ -214,7 +214,10 @@ function run() {
                 try {
                     const pack_array = JSON.parse(p);
                     core.info(`Concatting: ${JSON.stringify(pack_array)}`);
-                    pack_data.concat(pack_array);
+                    for (const pd of pack_array) {
+                        core.info(`Adding pack id: ${pd.pack_id}`);
+                        pack_data.push(pd);
+                    }
                 }
                 catch (e) {
                     // do "uuid - [v, v, v]" format here
