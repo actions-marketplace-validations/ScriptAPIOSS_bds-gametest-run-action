@@ -210,6 +210,7 @@ function run() {
                     version: [0, 0, 1]
                 }
             ];
+            core.debug(`Supplied packs: ${inputs_1.PACKS}`);
             for (const p of inputs_1.PACKS) {
                 try {
                     const pack_array = JSON.parse(p);
