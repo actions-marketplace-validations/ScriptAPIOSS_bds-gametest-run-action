@@ -16,7 +16,7 @@ import {DEBUG_TEST_TAG} from './debug-tests'
 import {create_debug_pack} from './debug-pack'
 import {BDS_PATH, PACKS, TEST_TAGS, TIMEOUT_TICKS} from './types/inputs'
 import {LEVEL_DAT} from './types/level-dat'
-import { readFile } from 'fs/promises'
+import {readFile} from 'fs/promises'
 
 const LOG_PATH: string = 'logs'
 const TEST_CONFIG_FILE: string = 'test_config.json'
@@ -49,7 +49,11 @@ async function run(): Promise<void> {
       try {
         const pack_array: Array<PackDefinition> = JSON.parse(p)
         core.info(`Concatting: ${JSON.stringify(pack_array)}`)
-        pack_data.concat(pack_array)
+
+        for (const pd of pack_array) {
+          core.info(`Adding pack id: ${pd.pack_id}`)
+          pack_data.push(pd)
+        }
       } catch (e) {
         // do "uuid - [v, v, v]" format here
       }
@@ -199,7 +203,9 @@ async function run(): Promise<void> {
 
     core.summary.addTable(rows)
 
-    const globber = await glob.create(path.join(process.cwd(), BDS_PATH, 'ContentLog__*'))
+    const globber = await glob.create(
+      path.join(process.cwd(), BDS_PATH, 'ContentLog__*')
+    )
     for await (const cl of globber.globGenerator()) {
       const flbuf = await readFile(cl, 'utf8')
       core.summary.addSeparator()
