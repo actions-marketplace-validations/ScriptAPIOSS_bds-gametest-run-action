@@ -13,6 +13,9 @@ test('test runs', () => {
   if (process.env['RUNNER_TOOL_CACHE'] == undefined) {
     process.env['RUNNER_TOOL_CACHE'] = '/tmp'
   }
+  if (process.env['GITHUB_STEP_SUMMARY'] == undefined) {
+    process.env['GITHUB_STEP_SUMMARY'] = '/tmp/summary.md'
+  }
   // end of local dev stuff
 
   if (!fs.existsSync('./bds/')) {
