@@ -45,6 +45,8 @@ async function run(): Promise<void> {
       }
     ] as Array<PackDefinition>
 
+    core.debug(`Supplied packs: ${PACKS}`)
+
     for (const p of PACKS) {
       try {
         const pack_array: Array<PackDefinition> = JSON.parse(p)
