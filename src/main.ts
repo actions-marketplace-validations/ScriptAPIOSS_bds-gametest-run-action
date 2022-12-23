@@ -45,6 +45,8 @@ async function run(): Promise<void> {
       }
     ] as Array<PackDefinition>
 
+    core.debug(`Before: ${pack_data}`)
+
     core.debug(`Supplied packs: ${PACKS}`)
 
     for (const p of PACKS) {
@@ -52,11 +54,15 @@ async function run(): Promise<void> {
         const pack_array: Array<PackDefinition> = JSON.parse(p)
         for (const pat of pack_array) {
           pack_data.push(pat)
+          core.debug(`Added: ${pat}`)
         }
       } catch (e) {
         // do normal
       }
     }
+
+    core.debug(`After: ${pack_data}`)
+
 
     core.startGroup('Setup configs')
 
