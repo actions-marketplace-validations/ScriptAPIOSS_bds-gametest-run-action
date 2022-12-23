@@ -210,18 +210,21 @@ function run() {
                     version: [0, 0, 1]
                 }
             ];
+            core.debug(`Before: ${pack_data}`);
             core.debug(`Supplied packs: ${inputs_1.PACKS}`);
             for (const p of inputs_1.PACKS) {
                 try {
                     const pack_array = JSON.parse(p);
                     for (const pat of pack_array) {
                         pack_data.push(pat);
+                        core.debug(`Added: ${pat}`);
                     }
                 }
                 catch (e) {
                     // do normal
                 }
             }
+            core.debug(`After: ${pack_data}`);
             core.startGroup('Setup configs');
             const test_config_data = JSON.stringify({
                 automation_repeat_count: 2,
