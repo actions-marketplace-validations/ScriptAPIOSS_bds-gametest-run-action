@@ -216,6 +216,7 @@ function run() {
                 core.debug(`Iteration: ${p}`);
                 try {
                     const pack_array = JSON.parse(p);
+                    core.info(`pa: ${pack_array}`);
                     for (const pat of pack_array) {
                         pack_data.push(pat);
                         core.debug(`Added: ${pat}`);
