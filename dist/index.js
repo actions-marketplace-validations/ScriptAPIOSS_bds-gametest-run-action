@@ -213,6 +213,7 @@ function run() {
             core.debug(`Before: ${pack_data}`);
             core.debug(`Supplied packs: ${inputs_1.PACKS}`);
             for (const p of inputs_1.PACKS) {
+                core.debug(`Iteration: ${p}`);
                 try {
                     const pack_array = JSON.parse(p);
                     for (const pat of pack_array) {

@@ -50,6 +50,7 @@ async function run(): Promise<void> {
     core.debug(`Supplied packs: ${PACKS}`)
 
     for (const p of PACKS) {
+      core.debug(`Iteration: ${p}`)
       try {
         const pack_array: Array<PackDefinition> = JSON.parse(p)
         for (const pat of pack_array) {
