@@ -6,3 +6,5 @@ export const TIMEOUT_TICKS = Number(
     required: true
   })
 )
+export const PACKS = core.getMultilineInput('PACKS')
+export const TEST_TAGS = core.getMultilineInput('TEST_TAGS')

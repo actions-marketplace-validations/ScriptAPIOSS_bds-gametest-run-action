@@ -1,5 +1,6 @@
 import * as core from '@actions/core'
 import * as exec from '@actions/exec'
+import * as glob from '@actions/glob'
 import {SummaryTableCell, SummaryTableRow} from '@actions/core/lib/summary'
 import {v4 as uuidv4} from 'uuid'
 
@@ -13,8 +14,9 @@ import {Permissions} from './types/permissions'
 import {SERVER_PROPERTIES} from './types/server-props'
 import {DEBUG_TEST_TAG} from './debug-tests'
 import {create_debug_pack} from './debug-pack'
-import {BDS_PATH, TIMEOUT_TICKS} from './types/inputs'
+import {BDS_PATH, PACKS, TEST_TAGS, TIMEOUT_TICKS} from './types/inputs'
 import {LEVEL_DAT} from './types/level-dat'
+import { readFile } from 'fs/promises'
 
 const LOG_PATH: string = 'logs'
 const TEST_CONFIG_FILE: string = 'test_config.json'
@@ -34,6 +36,26 @@ async function run(): Promise<void> {
       }
     }
 
+    let debug_pack_uuid = uuidv4()
+
+    const pack_data = [
+      {
+        pack_id: debug_pack_uuid,
+        version: [0, 0, 1]
+      }
+    ] as Array<PackDefinition>
+
+    for (const p of PACKS) {
+      try {
+        const pack_array: Array<PackDefinition> = JSON.parse(p)
+        for (const pat of pack_array) {
+          pack_data.push(pat)
+        }
+      } catch (e) {
+        // do normal
+      }
+    }
+
     core.startGroup('Setup configs')
 
     const test_config_data = JSON.stringify({
@@ -42,7 +64,7 @@ async function run(): Promise<void> {
       max_tests_per_batch: 20,
       timeout_ticks: TIMEOUT_TICKS,
       automation_testrun_id: '123456789',
-      automation_gametest_tags: [DEBUG_TEST_TAG, 'ChallengeTests']
+      automation_gametest_tags: [DEBUG_TEST_TAG, ...TEST_TAGS]
     } as TestConfig)
 
     await promises.writeFile(
@@ -54,22 +76,7 @@ async function run(): Promise<void> {
     )
     core.debug('wrote test_config.json')
 
-    let debug_pack_uuid = uuidv4()
-
     await create_debug_pack(debug_pack_uuid)
-
-    const pack_data = JSON.stringify([
-      {
-        pack_id: debug_pack_uuid,
-        version: [0, 0, 1]
-      },
-      {
-        pack_id: '142a42aa-98d4-420d-8e3f-e34ab8a0c05f',
-        version: [0, 0, 1]
-      }
-    ] as Array<PackDefinition>)
-
-    // levelname.txt
 
     await promises.writeFile(
       path.join(process.cwd(), BDS_PATH, 'server.properties'),
@@ -98,6 +105,8 @@ async function run(): Promise<void> {
     )
     core.debug('wrote level.dat')
 
+    core.debug(`world_behavior_packs: ${pack_data}`)
+
     await promises.writeFile(
       path.join(
         process.cwd(),
@@ -106,7 +115,7 @@ async function run(): Promise<void> {
         WORLD_NAME,
         WORLD_BEHAVIOR_PACKS_FILE
       ),
-      pack_data,
+      JSON.stringify(pack_data),
       {
         flag: 'w'
       }
@@ -190,6 +199,14 @@ async function run(): Promise<void> {
     }
 
     core.summary.addTable(rows)
+
+    const globber = await glob.create(path.join(process.cwd(), BDS_PATH, 'ContentLog__*'))
+    for await (const cl of globber.globGenerator()) {
+      const flbuf = await readFile(cl, 'utf8')
+      core.summary.addSeparator()
+      core.summary.addHeading(cl)
+      core.summary.addCodeBlock(flbuf)
+    }
 
     core.summary.write()
   } catch (error) {

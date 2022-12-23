@@ -10,6 +10,11 @@ inputs:
     required: true
     description: ''
     default: 60000
+  PACKS:
+    description: ''
+  TEST_TAGS:
+    description: ''
+    default: ''
 runs:
   using: 'node16'
   main: 'dist/index.js'
