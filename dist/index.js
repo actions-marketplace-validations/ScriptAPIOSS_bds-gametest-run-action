@@ -210,19 +210,20 @@ function run() {
                     version: [0, 0, 1]
                 }
             ];
-            core.debug(`Before: ${pack_data}`);
-            core.debug(`Supplied packs: ${inputs_1.PACKS}`);
+            core.info(`Before: ${pack_data}`);
+            core.info(`Supplied packs: ${inputs_1.PACKS}`);
             for (const p of inputs_1.PACKS) {
-                core.debug(`Iteration: ${p}`);
+                core.info(`Iteration: ${p}`);
                 try {
                     const pack_array = JSON.parse(p);
+                    core.info(`Iter parsed: ${JSON.stringify(pack_array)}`);
                     pack_data.concat(pack_array);
                 }
                 catch (e) {
                     // do "uuid - [v, v, v]" format here
                 }
             }
-            core.debug(`After: ${pack_data}`);
+            core.info(`After: ${JSON.stringify(pack_data)}`);
             core.startGroup('Setup configs');
             const test_config_data = JSON.stringify({
                 automation_repeat_count: 2,
