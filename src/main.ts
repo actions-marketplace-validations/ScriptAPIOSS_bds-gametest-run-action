@@ -45,23 +45,14 @@ async function run(): Promise<void> {
       }
     ] as Array<PackDefinition>
 
-    core.info(`Before: ${JSON.stringify(pack_data)}`)
-
-    core.info(`Supplied packs: ${PACKS}`)
-
     for (const p of PACKS) {
-      core.info(`Iteration: ${p}`)
       try {
         const pack_array: Array<PackDefinition> = JSON.parse(p)
-        core.info(`Iter parsed: ${JSON.stringify(pack_array)}`)
         pack_data.concat(pack_array)
       } catch (e) {
         // do "uuid - [v, v, v]" format here
       }
     }
-
-    core.info(`After: ${JSON.stringify(pack_data)}`)
-
 
     core.startGroup('Setup configs')
 
@@ -112,7 +103,7 @@ async function run(): Promise<void> {
     )
     core.debug('wrote level.dat')
 
-    core.debug(`world_behavior_packs: ${pack_data}`)
+    core.debug(`world_behavior_packs: ${JSON.stringify(pack_data)}`)
 
     await promises.writeFile(
       path.join(

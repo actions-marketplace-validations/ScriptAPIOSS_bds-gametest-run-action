@@ -210,20 +210,15 @@ function run() {
                     version: [0, 0, 1]
                 }
             ];
-            core.info(`Before: ${JSON.stringify(pack_data)}`);
-            core.info(`Supplied packs: ${inputs_1.PACKS}`);
             for (const p of inputs_1.PACKS) {
-                core.info(`Iteration: ${p}`);
                 try {
                     const pack_array = JSON.parse(p);
-                    core.info(`Iter parsed: ${JSON.stringify(pack_array)}`);
                     pack_data.concat(pack_array);
                 }
                 catch (e) {
                     // do "uuid - [v, v, v]" format here
                 }
             }
-            core.info(`After: ${JSON.stringify(pack_data)}`);
             core.startGroup('Setup configs');
             const test_config_data = JSON.stringify({
                 automation_repeat_count: 2,
@@ -250,7 +245,7 @@ function run() {
                 flag: 'w'
             });
             core.debug('wrote level.dat');
-            core.debug(`world_behavior_packs: ${pack_data}`);
+            core.debug(`world_behavior_packs: ${JSON.stringify(pack_data)}`);
             yield fs_1.promises.writeFile(path.join(process.cwd(), inputs_1.BDS_PATH, WORLDS_PATH, WORLD_NAME, WORLD_BEHAVIOR_PACKS_FILE), JSON.stringify(pack_data), {
                 flag: 'w'
             });
