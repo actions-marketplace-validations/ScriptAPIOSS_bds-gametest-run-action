@@ -164,6 +164,22 @@ async function run(): Promise<void> {
 
     core.summary.addHeading('Test results')
 
+    const passed_count = results.results.filter(v => {
+      return v.result === 'passed'
+    }).length
+
+    const failed_count = results.results.filter(v => {
+      return v.result === 'failed'
+    }).length
+
+    core.summary.addTable([
+      [
+        {data: ':green_circle: Passed', header: true},
+        {data: ':red_circle: Failed', header: true}
+      ],
+      [{data: `${passed_count}`}, {data: `${failed_count}`}]
+    ])
+
     const rows = new Array<SummaryTableRow>()
 
     rows.push([
