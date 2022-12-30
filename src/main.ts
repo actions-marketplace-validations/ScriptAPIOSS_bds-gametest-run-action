@@ -173,48 +173,44 @@ async function run(): Promise<void> {
       [
         {data: `${results.passed}`},
         {data: `${results.failed}`},
-        {data: `${results.total}`}
+        {data: `${results.totalRun}`}
       ]
     ])
 
-    const rows = new Array<SummaryTableRow>()
+    // const rows = new Array<SummaryTableRow>()
 
-    rows.push([
-      {data: `Test`, header: true},
-      {data: `Result`, header: true},
-      {data: `Iteration`, header: true},
-      {data: `Duration`, header: true},
-      {data: `Error`, header: true}
-    ])
+    // rows.push([
+    //   {data: `Test`, header: true},
+    //   {data: `Result`, header: true},
+    //   {data: `Iteration`, header: true},
+    //   {data: `Duration`, header: true},
+    //   {data: `Error`, header: true}
+    // ])
 
-    for (const r of results.results) {
-      // if (r.result === 'failed') {
-      //   core.error(`Test failed: ${r.name}`)
-      // }
+    // for (const r of results.results) {
+    //   let icon
+    //   switch (r.result) {
+    //     case 'passed':
+    //       icon = ':green_circle:'
+    //       break
+    //     case 'failed':
+    //       icon = ':red_circle:'
+    //       break
+    //   }
 
-      let icon
-      switch (r.result) {
-        case 'passed':
-          icon = ':green_circle:'
-          break
-        case 'failed':
-          icon = ':red_circle:'
-          break
-      }
+    //   const startTime = new Date(r.startTime)
+    //   const endTime = new Date(r.endTime)
 
-      const startTime = new Date(r.startTime)
-      const endTime = new Date(r.endTime)
+    //   rows.push([
+    //     {data: `${r.name}`},
+    //     {data: `${icon} ${r.result}`},
+    //     {data: `${r.iteration}`},
+    //     {data: `${(endTime.getTime() - startTime.getTime()) / 1000}s`},
+    //     {data: `${r.error}`}
+    //   ])
+    // }
 
-      rows.push([
-        {data: `${r.name}`},
-        {data: `${icon} ${r.result}`},
-        {data: `${r.iteration}`},
-        {data: `${(endTime.getTime() - startTime.getTime()) / 1000}s`},
-        {data: `${r.error}`}
-      ])
-    }
-
-    core.summary.addTable(rows)
+    // core.summary.addTable(rows)
 
     const globber = await glob.create(
       path.join(process.cwd(), BDS_PATH, 'ContentLog__*')
