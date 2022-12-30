@@ -187,6 +187,15 @@ async function run(): Promise<void> {
       ]
     ])
 
+    const test_groups = new Set<string>()
+
+    results.results.forEach(r => {
+      const test_group = r.name.split(':')[0]
+      test_groups.add(test_group)
+    })
+
+    core.summary.addCodeBlock(JSON.stringify(test_groups))
+
     results.results.sort((a, b) => {
       if (a.name === b.name) {
         if (a.iteration < b.iteration) {
