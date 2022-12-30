@@ -278,9 +278,25 @@ function run() {
                 [
                     { data: `${results.passed}` },
                     { data: `${results.failed}` },
-                    { data: `${results.total}` }
+                    { data: `${results.totalRun}` }
                 ]
             ]);
+            results.results.sort((a, b) => {
+                if (a.name === b.name) {
+                    if (a.iteration < b.iteration) {
+                        return 1;
+                    }
+                    else {
+                        return -1;
+                    }
+                }
+                else if (a.name < b.name) {
+                    return 1;
+                }
+                else {
+                    return -1;
+                }
+            });
             const rows = new Array();
             rows.push([
                 { data: `Test`, header: true },
@@ -290,9 +306,6 @@ function run() {
                 { data: `Error`, header: true }
             ]);
             for (const r of results.results) {
-                // if (r.result === 'failed') {
-                //   core.error(`Test failed: ${r.name}`)
-                // }
                 let icon;
                 switch (r.result) {
                     case 'passed':
