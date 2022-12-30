@@ -271,11 +271,13 @@ function run() {
             core.summary.addHeading('Test results');
             core.summary.addTable([
                 [
+                    { data: 'Unique', header: true },
                     { data: ':green_circle: <br /> Passed', header: true },
                     { data: ':red_circle: <br /> Failed', header: true },
                     { data: 'Total Run', header: true }
                 ],
                 [
+                    { data: `${results.unique}` },
                     { data: `${results.passed}` },
                     { data: `${results.failed}` },
                     { data: `${results.totalRun}` }
