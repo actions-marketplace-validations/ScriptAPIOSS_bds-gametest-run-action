@@ -195,7 +195,7 @@ async function run(): Promise<void> {
       test_groups.add(test_group)
     })
 
-    core.summary.addCodeBlock(JSON.stringify(test_groups))
+    core.summary.addCodeBlock(JSON.stringify(test_groups.entries()))
 
     results.results.sort((a, b) => {
       if (a.name === b.name) {
