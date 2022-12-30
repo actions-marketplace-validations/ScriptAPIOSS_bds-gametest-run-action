@@ -177,40 +177,54 @@ async function run(): Promise<void> {
       ]
     ])
 
-    // const rows = new Array<SummaryTableRow>()
+    results.results.sort((a, b) => {
+      if (a.name === b.name) {
+        if (a.iteration < b.iteration) {
+          return 1
+        } else {
+          return -1
+        }
+      } else if (a.name < b.name) {
+        return 1
+      } else {
+        return -1
+      }
+    })
 
-    // rows.push([
-    //   {data: `Test`, header: true},
-    //   {data: `Result`, header: true},
-    //   {data: `Iteration`, header: true},
-    //   {data: `Duration`, header: true},
-    //   {data: `Error`, header: true}
-    // ])
+    const rows = new Array<SummaryTableRow>()
 
-    // for (const r of results.results) {
-    //   let icon
-    //   switch (r.result) {
-    //     case 'passed':
-    //       icon = ':green_circle:'
-    //       break
-    //     case 'failed':
-    //       icon = ':red_circle:'
-    //       break
-    //   }
+    rows.push([
+      {data: `Test`, header: true},
+      {data: `Result`, header: true},
+      {data: `Iteration`, header: true},
+      {data: `Duration`, header: true},
+      {data: `Error`, header: true}
+    ])
 
-    //   const startTime = new Date(r.startTime)
-    //   const endTime = new Date(r.endTime)
+    for (const r of results.results) {
+      let icon
+      switch (r.result) {
+        case 'passed':
+          icon = ':green_circle:'
+          break
+        case 'failed':
+          icon = ':red_circle:'
+          break
+      }
 
-    //   rows.push([
-    //     {data: `${r.name}`},
-    //     {data: `${icon} ${r.result}`},
-    //     {data: `${r.iteration}`},
-    //     {data: `${(endTime.getTime() - startTime.getTime()) / 1000}s`},
-    //     {data: `${r.error}`}
-    //   ])
-    // }
+      const startTime = new Date(r.startTime)
+      const endTime = new Date(r.endTime)
 
-    // core.summary.addTable(rows)
+      rows.push([
+        {data: `${r.name}`},
+        {data: `${icon} ${r.result}`},
+        {data: `${r.iteration}`},
+        {data: `${(endTime.getTime() - startTime.getTime()) / 1000}s`},
+        {data: `${r.error}`}
+      ])
+    }
+
+    core.summary.addTable(rows)
 
     const globber = await glob.create(
       path.join(process.cwd(), BDS_PATH, 'ContentLog__*')
