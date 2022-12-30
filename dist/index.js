@@ -286,17 +286,17 @@ function run() {
             results.results.sort((a, b) => {
                 if (a.name === b.name) {
                     if (a.iteration < b.iteration) {
-                        return 1;
+                        return -1;
                     }
                     else {
-                        return -1;
+                        return 1;
                     }
                 }
                 else if (a.name < b.name) {
-                    return 1;
+                    return -1;
                 }
                 else {
-                    return -1;
+                    return 1;
                 }
             });
             const rows = new Array();
