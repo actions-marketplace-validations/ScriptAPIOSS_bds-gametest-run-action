@@ -286,6 +286,7 @@ function run() {
             const test_groups = new Set();
             results.results.forEach(r => {
                 const test_group = r.name.split(':')[0];
+                core.info(`Got ${test_group}`);
                 test_groups.add(test_group);
             });
             core.summary.addCodeBlock(JSON.stringify(test_groups));
