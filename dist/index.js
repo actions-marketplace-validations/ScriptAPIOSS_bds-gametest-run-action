@@ -269,18 +269,17 @@ function run() {
             let results = JSON.parse(yield fs_1.promises.readFile(path.join(process.cwd(), inputs_1.BDS_PATH, LOG_PATH, TEST_RESULTS_FILE), 'utf8'));
             core.info(JSON.stringify(results));
             core.summary.addHeading('Test results');
-            const passed_count = results.results.filter(v => {
-                return v.result === 'passed';
-            }).length;
-            const failed_count = results.results.filter(v => {
-                return v.result === 'failed';
-            }).length;
             core.summary.addTable([
                 [
-                    { data: ':green_circle: Passed', header: true },
-                    { data: ':red_circle: Failed', header: true }
+                    { data: ':green_circle: <br /> Passed', header: true },
+                    { data: ':red_circle: <br /> Failed', header: true },
+                    { data: 'Total Run', header: true }
                 ],
-                [{ data: `${passed_count}` }, { data: `${failed_count}` }]
+                [
+                    { data: `${results.passed}` },
+                    { data: `${results.failed}` },
+                    { data: `${results.total}` }
+                ]
             ]);
             const rows = new Array();
             rows.push([
