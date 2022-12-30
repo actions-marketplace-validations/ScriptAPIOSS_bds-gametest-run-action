@@ -225,9 +225,9 @@ function run() {
             }
             core.startGroup('Setup configs');
             const test_config_data = JSON.stringify({
-                automation_repeat_count: 2,
-                automation_repeat_failures_only: true,
-                max_tests_per_batch: 20,
+                automation_repeat_count: inputs_1.AUTOMATION_REPEAT_COUNT,
+                automation_repeat_failures_only: inputs_1.AUTOMATION_REPEAT_FAILURES_ONLY,
+                max_tests_per_batch: inputs_1.MAX_TESTS_PER_BATCH,
                 timeout_ticks: inputs_1.TIMEOUT_TICKS,
                 automation_testrun_id: '123456789',
                 automation_gametest_tags: [debug_tests_1.DEBUG_TEST_TAG, ...inputs_1.TEST_TAGS]
@@ -393,10 +393,19 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.TEST_TAGS = exports.PACKS = exports.TIMEOUT_TICKS = exports.BDS_PATH = void 0;
+exports.TEST_TAGS = exports.PACKS = exports.MAX_TESTS_PER_BATCH = exports.AUTOMATION_REPEAT_FAILURES_ONLY = exports.AUTOMATION_REPEAT_COUNT = exports.TIMEOUT_TICKS = exports.BDS_PATH = void 0;
 const core = __importStar(__nccwpck_require__(2186));
 exports.BDS_PATH = core.getInput('BDS_PATH', { required: true });
 exports.TIMEOUT_TICKS = Number(core.getInput('TIMEOUT_TICKS', {
+    required: true
+}));
+exports.AUTOMATION_REPEAT_COUNT = Number(core.getInput('AUTOMATION_REPEAT_COUNT', {
+    required: true
+}));
+exports.AUTOMATION_REPEAT_FAILURES_ONLY = core.getBooleanInput('AUTOMATION_REPEAT_FAILURES_ONLY', {
+    required: true
+});
+exports.MAX_TESTS_PER_BATCH = Number(core.getInput('MAX_TESTS_PER_BATCH', {
     required: true
 }));
 exports.PACKS = core.getMultilineInput('PACKS');

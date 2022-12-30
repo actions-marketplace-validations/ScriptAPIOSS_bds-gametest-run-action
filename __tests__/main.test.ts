@@ -25,6 +25,9 @@ test('test runs', () => {
 
   process.env['INPUT_BDS_PATH'] = './bds/'
   process.env['INPUT_TIMEOUT_TICKS'] = '60000'
+  process.env['INPUT_AUTOMATION_REPEAT_COUNT'] = '2'
+  process.env['INPUT_AUTOMATION_REPEAT_FAILURES_ONLY'] = 'true'
+  process.env['INPUT_MAX_TESTS_PER_BATCH'] = '20'
 
   const np = process.execPath
   const ip = path.join(__dirname, '..', 'lib', 'main.js')

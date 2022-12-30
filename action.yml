@@ -10,6 +10,19 @@ inputs:
     required: true
     description: ''
     default: 60000
+  AUTOMATION_REPEAT_COUNT:
+    required: true
+    description: ''
+    default: 1
+  AUTOMATION_REPEAT_FAILURES_ONLY:
+    required: true
+    description: ''
+    default: true
+  MAX_TESTS_PER_BATCH:
+    required: true
+    description: ''
+    default: 20
+
   PACKS:
     description: ''
   TEST_TAGS:

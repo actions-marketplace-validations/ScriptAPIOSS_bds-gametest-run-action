@@ -14,7 +14,15 @@ import {Permissions} from './types/permissions'
 import {SERVER_PROPERTIES} from './types/server-props'
 import {DEBUG_TEST_TAG} from './debug-tests'
 import {create_debug_pack} from './debug-pack'
-import {BDS_PATH, PACKS, TEST_TAGS, TIMEOUT_TICKS} from './types/inputs'
+import {
+  AUTOMATION_REPEAT_COUNT,
+  AUTOMATION_REPEAT_FAILURES_ONLY,
+  BDS_PATH,
+  MAX_TESTS_PER_BATCH,
+  PACKS,
+  TEST_TAGS,
+  TIMEOUT_TICKS
+} from './types/inputs'
 import {LEVEL_DAT} from './types/level-dat'
 import {readFile} from 'fs/promises'
 
@@ -62,9 +70,9 @@ async function run(): Promise<void> {
     core.startGroup('Setup configs')
 
     const test_config_data = JSON.stringify({
-      automation_repeat_count: 2,
-      automation_repeat_failures_only: true,
-      max_tests_per_batch: 20,
+      automation_repeat_count: AUTOMATION_REPEAT_COUNT,
+      automation_repeat_failures_only: AUTOMATION_REPEAT_FAILURES_ONLY,
+      max_tests_per_batch: MAX_TESTS_PER_BATCH,
       timeout_ticks: TIMEOUT_TICKS,
       automation_testrun_id: '123456789',
       automation_gametest_tags: [DEBUG_TEST_TAG, ...TEST_TAGS]
